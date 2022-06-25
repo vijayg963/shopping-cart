@@ -7,6 +7,7 @@ class Card extends React.Component {
     this.state = {
       addData: [],
       sortByValue: '',
+      updateQuantity: 1,
     };
   }
   handleOrder = (item) => {
@@ -26,6 +27,37 @@ class Card extends React.Component {
       }
     });
   };
+
+  handleIncrement = (id) => {
+    console.log(id);
+    this.setState((preState) => {
+      let upadetedCartIteam = preState.addData.map((p) => {
+        console.log(p);
+        if (p.id === id) {
+          return { ...p, quantity: p.quantity + 1 };
+        }
+        return p;
+      });
+      return {
+        addData: upadetedCartIteam,
+      };
+    });
+  };
+
+  handleDecrement = (id) => {
+    this.setState((preState) => {
+      let upadetedCartIteam = preState.addData.map((p) => {
+        if (p.id === id) {
+          return { ...p, quantity: p.quantity - 1 };
+        }
+        return p;
+      });
+      return {
+        addData: upadetedCartIteam,
+      };
+    });
+  };
+
   productExist = (item) => {
     const len = this.state.addData.length;
     const items = this.state.addData;
@@ -38,10 +70,10 @@ class Card extends React.Component {
   };
   handledata = (sorted, data) => {
     let result = [...data];
-
     if (sorted === 'lowest') {
       result = data.sort((a, b) => a.price - b.price);
-    } else if (sorted === 'highest') {
+    }
+    if (sorted === 'highest') {
       result = data.sort((a, b) => b.price - a.price);
     }
     return data;
@@ -53,9 +85,14 @@ class Card extends React.Component {
       : this.props.data;
     const shoppingBeg = this.state.addData;
     const newData = this.handledata(sorted, data);
+
     return (
       <>
-        <Addcart shoppingBeg={shoppingBeg} />
+        <Addcart
+          shoppingBeg={shoppingBeg}
+          handleIncrement={this.handleIncrement}
+          handleDecrement={this.handleDecrement}
+        />
         <div className='card-parent'>
           {newData.map((item, i) => (
             <>
@@ -73,8 +110,8 @@ class Card extends React.Component {
                 <div className='flex'>
                   <div>
                     Size:-
-                    {item.availableSizes.map((e, i) => (
-                      <span key={i}>{e},</span>
+                    {item.availableSizes.map((e, key) => (
+                      <span key={key}>{e},</span>
                     ))}
                   </div>
                   <p className='price-tag'>

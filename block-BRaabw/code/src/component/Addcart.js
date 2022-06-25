@@ -20,7 +20,6 @@ class Addcart extends React.Component {
 
   render() {
     let activeItem = this.props.shoppingBeg;
-    console.log(activeItem);
     return (
       <div className='addCart'>
         <div onClick={this.handleDisplay} className='beg-logo'>
@@ -37,9 +36,9 @@ class Addcart extends React.Component {
             <span className='cart-name'>Cart</span>
           </section>
           <div className='cart-view'>
-            {activeItem.map((item) => (
+            {activeItem.map((item, key) => (
               <>
-                <div className='beg-item-view flex-end'>
+                <div key={key} className='beg-item-view flex-end'>
                   <div className='flex'>
                     <span>
                       <img src={`/static/products/${item.sku}_1.jpg`} alt='' />
@@ -51,32 +50,41 @@ class Addcart extends React.Component {
                     </div>
                   </div>
                   <span className='price-quantity'>
-                    <p className='mrp'>$ {item.price}</p>
+                    <p className='mrp'>
+                      $ {(item.price * item.quantity).toFixed(2)}
+                    </p>
                     <span>
-                      <span className='btn'> - </span>
-                      <span className='btn'>+</span>
+                      <span
+                        onClick={() => this.props.handleDecrement(item.id)}
+                        className='btn'
+                      >
+                        -
+                      </span>
+                      <span
+                        onClick={() => this.props.handleIncrement(item.id)}
+                        className='btn'
+                      >
+                        +
+                      </span>
                     </span>
                   </span>
                 </div>
-                <div className='subtotal'>
-                  <div className='flex-end'>
-                    <span>SUBTOTAL</span>
-                    <span>
-                      <h2>{item.price}</h2>
-                      <p>
-                        {item.quantity === 0
-                          ? ''
-                          : `${item.quantity} + ' ' + '*'`}
-                        {/* {item.price} */}
-                      </p>
-                    </span>
-                  </div>
-                  <button onClick={this.displayTotal} className='total-bill'>
-                    Checkout
-                  </button>
-                </div>
               </>
             ))}
+          </div>
+          <div className='subtotal'>
+            <div className='flex-end'>
+              <span>SUBTOTAL: </span>
+              <span>
+                {/* <h2>{item.price}</h2> */}
+                <p>
+                  {/* {item.quantity === 0 ? '' : item.quantity * item.price} */}
+                </p>
+              </span>
+            </div>
+            <button onClick={this.displayTotal} className='total-bill'>
+              Checkout
+            </button>
           </div>
         </div>
       </div>

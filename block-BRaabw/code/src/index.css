@@ -39,6 +39,10 @@ header {
   display: inline-block;
 }
 
+.card-parent {
+  padding-left: 60px;
+}
+
 h2 {
   padding: 0;
   margin: 0;
@@ -47,14 +51,15 @@ h2 {
 }
 
 img {
-  height: 300px;
+  height: 450px;
   width: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .item-img {
   width: 300px;
-  height: 300px;
+  height: 320px;
+  overflow: hidden;
   position: relative;
 }
 
@@ -176,7 +181,7 @@ button {
   background-color: yellow;
   height: 25px;
   width: 25px;
-  padding: 5px 7px;
+  padding: 3px 7px;
   position: fixed;
   top: 35px;
   right: 0;
@@ -215,8 +220,9 @@ button {
 }
 
 .count2 {
+  box-sizing: border-box;
   margin-left: -60px;
-  padding: 5px 8px;
+  padding: 3px 8px;
   background-color: #eabf00;
 }
 
@@ -233,7 +239,15 @@ button {
 .cart-view span img {
   width: 120px;
   height: 120px;
+  object-fit: cover;
 }
+
+.cart-view span {
+  height: 120px;
+  width: 120px;
+  overflow: hidden;
+}
+
 .subtotal {
   padding: 2rem;
   color: white;
@@ -246,7 +260,6 @@ button {
   display: flex;
   justify-content: space-between;
   position: absolute;
-
   right: 10%;
 }
 
@@ -278,6 +291,7 @@ button {
 }
 
 .btn {
+  cursor: pointer;
   margin: 4px;
   padding: 3px 5px;
   background-color: black;
