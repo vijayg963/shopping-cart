@@ -232,14 +232,19 @@ button {
 }
 
 .cart-view {
+  display: block;
+  box-sizing: border-box;
+  margin: 10px;
   color: white;
-  padding: 2rem 1rem;
+  padding: 1rem;
+  overflow: hidden;
 }
 
 .cart-view span img {
+  font-size: 0;
   width: 120px;
   height: 120px;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .cart-view span {
@@ -253,6 +258,7 @@ button {
   color: white;
   position: absolute;
   bottom: 0;
+  background-color: black;
 }
 
 .selector {
@@ -275,11 +281,18 @@ button {
 }
 
 .beg-item-view {
+  margin: 10px;
   display: flex;
   flex-direction: row;
 }
 
+.style-color {
+  padding: 0px;
+  margin: 5px;
+}
+
 .details {
+  box-sizing: border-box;
   margin: 0 20px;
   text-align: left;
 }
@@ -310,7 +323,8 @@ button {
 .total-bill {
   width: 100%;
   color: white;
-  background-color: black;
+  margin: 5px;
+  background-color: rgb(17, 16, 16);
   font-size: 1.2rem;
   padding: 0.8rem 10rem;
 }

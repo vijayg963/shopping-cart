@@ -20,6 +20,7 @@ class Addcart extends React.Component {
 
   render() {
     let activeItem = this.props.shoppingBeg;
+    console.log(activeItem);
     return (
       <div className='addCart'>
         <div onClick={this.handleDisplay} className='beg-logo'>
@@ -45,7 +46,7 @@ class Addcart extends React.Component {
                     </span>
                     <div className='details'>
                       <span>{item.title}</span>
-                      <p>{item.style}</p>
+                      <p className='style-color'>{item.style}</p>
                       <span>Quantity: {item.quantity}</span>
                     </div>
                   </div>
@@ -74,11 +75,15 @@ class Addcart extends React.Component {
           </div>
           <div className='subtotal'>
             <div className='flex-end'>
-              <span>SUBTOTAL: </span>
+              <span>SUBTOTAL : </span>
               <span>
                 {/* <h2>{item.price}</h2> */}
                 <p>
-                  {/* {item.quantity === 0 ? '' : item.quantity * item.price} */}
+                  {activeItem.length > 0
+                    ? activeItem
+                        .reduce((acc, cv) => acc + cv.quantity * cv.price, 0)
+                        .toFixed(2)
+                    : null}
                 </p>
               </span>
             </div>
