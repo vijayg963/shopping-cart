@@ -18,6 +18,16 @@ class Addcart extends React.Component {
     });
   };
 
+  alertTotal = (activeItem) => {
+    let total =
+      activeItem.length > 0
+        ? activeItem
+            .reduce((acc, cv) => acc + cv.quantity * cv.price, 0)
+            .toFixed(2)
+        : null;
+    return alert(`Total amount is ${total}`);
+  };
+
   render() {
     let activeItem = this.props.shoppingBeg;
     console.log(activeItem);
@@ -51,6 +61,9 @@ class Addcart extends React.Component {
                     </div>
                   </div>
                   <span className='price-quantity'>
+                    <p className='deletItem' onClick={this.props.handleDelete}>
+                      ❌
+                    </p>
                     <p className='mrp'>
                       $ {(item.price * item.quantity).toFixed(2)}
                     </p>
@@ -77,7 +90,6 @@ class Addcart extends React.Component {
             <div className='flex-end'>
               <span>SUBTOTAL : </span>
               <span>
-                {/* <h2>{item.price}</h2> */}
                 <p>
                   {activeItem.length > 0
                     ? activeItem
@@ -87,7 +99,10 @@ class Addcart extends React.Component {
                 </p>
               </span>
             </div>
-            <button onClick={this.displayTotal} className='total-bill'>
+            <button
+              onClick={() => this.alertTotal(activeItem)}
+              className='total-bill'
+            >
               Checkout
             </button>
           </div>

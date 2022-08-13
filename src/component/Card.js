@@ -44,10 +44,12 @@ class Card extends React.Component {
     });
   };
 
+  handleDelete = () => {};
+
   handleDecrement = (id) => {
     this.setState((preState) => {
       let upadetedCartIteam = preState.addData.map((p) => {
-        if (p.id === id) {
+        if (p.id === id && p.quantity > 0) {
           return { ...p, quantity: p.quantity - 1 };
         }
         return p;
