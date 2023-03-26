@@ -8,12 +8,9 @@ class Main extends React.Component {
       selected: '',
     };
   }
-  handleSelect = () => {
-    this.setState({});
-  };
-  handledata = (event) => {
-    let selectedOption = event.target.value;
-    this.setState({ selected: selectedOption });
+
+  handledata = (e) => {
+    this.setState({ selected: e.target.value });
   };
   render() {
     return (

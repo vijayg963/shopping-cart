@@ -112,7 +112,13 @@ button {
   margin-top: 20px;
   max-width: 64px;
   background-color: whitesmoke;
-  position: fixed;
+}
+
+.card-parent {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  padding: 0 2rem;
 }
 
 .circle {
@@ -225,17 +231,30 @@ button {
 }
 
 .header {
-  padding: 3rem 8rem;
+  padding: 2rem 8rem;
   border-bottom: 3px solid rgb(0, 0, 0);
 }
 
 .cart-view {
   display: block;
   box-sizing: border-box;
-  margin: 10px;
   color: white;
   padding: 1rem;
-  overflow: hidden;
+  padding-left: 0;
+  height: 57vh;
+  overflow-x: auto;
+}
+
+.cart-view ::-webkit-scrollbar-track {
+  background: #a80000;
+}
+
+.cart-view ::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+.cart-view ::-webkit-scrollbar-thumb:hover {
+  background: #271a1a;
 }
 
 .cart-view span img {
@@ -252,7 +271,8 @@ button {
 }
 
 .subtotal {
-  padding: 2rem;
+  padding: 2rem 2.6rem;
+  padding-top: 1rem;
   color: white;
   position: absolute;
   bottom: 0;

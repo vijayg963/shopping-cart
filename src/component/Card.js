@@ -29,35 +29,26 @@ class Card extends React.Component {
   };
 
   handleIncrement = (id) => {
-    console.log(id);
-    this.setState((preState) => {
-      let upadetedCartIteam = preState.addData.map((p) => {
-        console.log(p);
-        if (p.id === id) {
-          return { ...p, quantity: p.quantity + 1 };
-        }
-        return p;
-      });
+    this.setState((prev) => {
+      let upadetedCartIteam = prev.addData.map((p) => p.id === id ? { ...p, quantity: p.quantity + 1 } : p);
       return {
         addData: upadetedCartIteam,
       };
     });
   };
 
-  handleDelete = () => {};
-
   handleDecrement = (id) => {
-    this.setState((preState) => {
-      let upadetedCartIteam = preState.addData.map((p) => {
-        if (p.id === id && p.quantity > 0) {
-          return { ...p, quantity: p.quantity - 1 };
-        }
-        return p;
-      });
+    this.setState((prev) => {
+      let upadetedCartIteam = prev.addData.map((p) => p.id === id && p.quantity > 1 ? { ...p, quantity: p.quantity - 1 } : p);
       return {
         addData: upadetedCartIteam,
       };
     });
+  };
+
+  handleDelete = (d) => {
+    let upadetedCartIteam = this.state.addData.filter((elm) => { return elm.id !== d })
+    this.setState({ addData: upadetedCartIteam })
   };
 
   productExist = (item) => {
@@ -70,16 +61,21 @@ class Card extends React.Component {
     }
     return false;
   };
+
   handledata = (sorted, data) => {
-    let result = [...data];
+    var result = [...data];
+    if (sorted === "") {
+      result = data
+    }
     if (sorted === 'lowest') {
       result = data.sort((a, b) => a.price - b.price);
     }
     if (sorted === 'highest') {
       result = data.sort((a, b) => b.price - a.price);
     }
-    return data;
+    return result;
   };
+
   render() {
     let sorted = this.props.selected;
     let data = this.props.filterSize.length
@@ -94,40 +90,40 @@ class Card extends React.Component {
           shoppingBeg={shoppingBeg}
           handleIncrement={this.handleIncrement}
           handleDecrement={this.handleDecrement}
+          handleDelete={this.handleDelete}
         />
         <div className='card-parent'>
           {newData.map((item, i) => (
-            <>
-              <div key={i} className='card'>
-                <div className='item-img'>
+            <div key={i} className='card'>
+              <div className='item-img'>
+                {item.isFreeShipping &&
                   <span className='free-shiping'>
                     {item.isFreeShipping ? 'Free Shiping' : ''}
-                  </span>
-                  <img
-                    src={`/static/products/${item.sku}_1.jpg`}
-                    alt={item.sku}
-                  />
-                </div>
-                <h2>{item.title}</h2>
-                <div className='flex'>
-                  <div>
-                    Size:-
-                    {item.availableSizes.map((e, key) => (
-                      <span key={key}>{e},</span>
-                    ))}
-                  </div>
-                  <p className='price-tag'>
-                    {item.currencyFormat} <strong>{item.price}</strong>
-                  </p>
-                </div>
-                <button
-                  onClick={() => this.handleOrder(item)}
-                  className='Add-cart'
-                >
-                  Add to cart
-                </button>
+                  </span>}
+                <img
+                  src={`/static/products/${item.sku}_1.jpg`}
+                  alt={item.sku}
+                />
               </div>
-            </>
+              <h2>{item.title}</h2>
+              <div className='flex'>
+                <div>
+                  Size:-
+                  {item.availableSizes.map((e) => (
+                    <span key={e}>{e},</span>
+                  ))}
+                </div>
+                <p className='price-tag'>
+                  {item.currencyFormat} <strong>{item.price}</strong>
+                </p>
+              </div>
+              <button
+                onClick={() => this.handleOrder(item)}
+                className='Add-cart'
+              >
+                Add to cart
+              </button>
+            </div>
           ))}
         </div>
       </>

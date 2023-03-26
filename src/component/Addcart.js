@@ -22,15 +22,14 @@ class Addcart extends React.Component {
     let total =
       activeItem.length > 0
         ? activeItem
-            .reduce((acc, cv) => acc + cv.quantity * cv.price, 0)
-            .toFixed(2)
+          .reduce((acc, cv) => acc + cv.quantity * cv.price, 0)
+          .toFixed(2)
         : null;
     return alert(`Total amount is ${total}`);
   };
 
   render() {
     let activeItem = this.props.shoppingBeg;
-    console.log(activeItem);
     return (
       <div className='addCart'>
         <div onClick={this.handleDisplay} className='beg-logo'>
@@ -38,7 +37,7 @@ class Addcart extends React.Component {
           <span className='circle count'>{activeItem.length}</span>
         </div>
         <div className={this.state.display ? 'addCart-box' : 'hidden'}>
-          <span onClick={this.handleClose} className='close-button'>
+          <span role='img' aria-label="close" onClick={this.handleClose} className='close-button'>
             ❌
           </span>
           <section className='header'>
@@ -47,43 +46,41 @@ class Addcart extends React.Component {
             <span className='cart-name'>Cart</span>
           </section>
           <div className='cart-view'>
-            {activeItem.map((item, key) => (
-              <>
-                <div key={key} className='beg-item-view flex-end'>
-                  <div className='flex'>
-                    <span>
-                      <img src={`/static/products/${item.sku}_1.jpg`} alt='' />
-                    </span>
-                    <div className='details'>
-                      <span>{item.title}</span>
-                      <p className='style-color'>{item.style}</p>
-                      <span>Quantity: {item.quantity}</span>
-                    </div>
+            {activeItem?.map((item, i) => (
+              <div key={i} className='beg-item-view flex-end'>
+                <div className='flex'>
+                  <span>
+                    <img src={`/static/products/${item.sku}_1.jpg`} alt='' />
+                  </span>
+                  <div className='details'>
+                    <span>{item.title}</span>
+                    <p className='style-color'>{item.style}</p>
+                    <span>Quantity: {item.quantity}</span>
                   </div>
-                  <span className='price-quantity'>
-                    <p className='deletItem' onClick={this.props.handleDelete}>
-                      ❌
-                    </p>
-                    <p className='mrp'>
-                      $ {(item.price * item.quantity).toFixed(2)}
-                    </p>
-                    <span>
-                      <span
-                        onClick={() => this.props.handleDecrement(item.id)}
-                        className='btn'
-                      >
-                        -
-                      </span>
-                      <span
-                        onClick={() => this.props.handleIncrement(item.id)}
-                        className='btn'
-                      >
-                        +
-                      </span>
+                </div>
+                <span className='price-quantity'>
+                  <span aria-label="close" role='img' className='deletItem' onClick={() => this.props.handleDelete(item.id)}>
+                    ❌
+                  </span>
+                  <p className='mrp'>
+                    $ {(item.price * item.quantity).toFixed(2)}
+                  </p>
+                  <span>
+                    <span
+                      onClick={() => this.props.handleDecrement(item.id)}
+                      className='btn'
+                    >
+                      -
+                    </span>
+                    <span
+                      onClick={() => this.props.handleIncrement(item.id)}
+                      className='btn'
+                    >
+                      +
                     </span>
                   </span>
-                </div>
-              </>
+                </span>
+              </div>
             ))}
           </div>
           <div className='subtotal'>
@@ -93,8 +90,8 @@ class Addcart extends React.Component {
                 <p>
                   {activeItem.length > 0
                     ? activeItem
-                        .reduce((acc, cv) => acc + cv.quantity * cv.price, 0)
-                        .toFixed(2)
+                      .reduce((acc, cv) => acc + cv.quantity * cv.price, 0)
+                      .toFixed(2)
                     : null}
                 </p>
               </span>
